@@ -1,0 +1,103 @@
+html {
+  /* footer support */
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background-color: rgb(177, 171, 171);
+  color: black;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  word-wrap: break-word;
+  /* footer support */
+  margin-bottom: 100px;
+}
+
+header {
+  background-color: white;
+  padding: 20px 0;
+}
+
+.head-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  margin-left: 80px;
+  font-size: 50px;
+}
+
+#login {
+  width: 120px;
+  height: 50px;
+  border: #ccc;
+  border-radius: 10px;
+  font-size: 30px;
+  margin-right: 80px;
+}
+
+#add {
+  font-size: 30px;
+  margin-left: 45%;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.github {
+  color: black;
+  transition: transform 0.3s ease-in-out;
+  margin-right: 10px;
+  width: 30px;
+  border-radius: 70px;
+}
+
+.github:hover {
+  transform: rotate(360deg) scale(1.2);
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 9999;
+}
+
+button,
+input {
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+input[type="text"],
+input[type="number"] {
+  cursor: text;
+}
+
+.book-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}

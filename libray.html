@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Object-oriented JavaScript example</title>
+    <link rel="stylesheet" href="./library.css" />
+    <script src="./library.js" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="head-flex">
+        <h1>Library</h1>
+        <button id="login">Log in</button>
+      </div>
+    </header>
+    <main>
+      <div id="add">
+        <h2 id="openFormButton">+ Add book</h2>
+      </div>
+      <div id="formPopup" class="popup">
+        <form>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Title"
+            required
+          />
+          <br />
+          <input
+            type="text"
+            id="author"
+            name="author"
+            placeholder="Author"
+            required
+          />
+          <br />
+          <input type="number" id="pages" placeholder="Pages" required />
+          <div>
+            <h4>Have you read it? <input type="checkbox" /></h4>
+          </div>
+          <button type="submit" onclick=" displayLibrary();">Submit</button>
+        </form>
+      </div>
+      <div id="bookContainer"></div>
+    </main>
+    <footer>
+      <p>
+        Copyright &copy; 2023 Daberechi Levi Nwachukwu. All rights reserved.
+        <a href="https://github.com/IvelDabs/landing_page"
+          ><img src="./images/github.jpeg" alt="" class="github"
+        /></a>
+      </p>
+    </footer>
+  </body>
+</html>
