@@ -1,77 +1,44 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Object-oriented JavaScript example</title>
-    <link rel="stylesheet" href="./index.css" />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      crossorigin="anonymous"
-      defer
-    ></script>
-    <script src="./library.js" defer></script>
-  </head>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Object-oriented JavaScript example</title>
+        <link rel="stylesheet" href="./index.css" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous" defer></script>
+        <script src="./library.js" defer></script>
+    </head>
 
-  <body>
-    <header>
-      <div class="head-flex">
-        <h1>Library</h1>
-        <button id="login">Log in</button>
-      </div>
-    </header>
-    <main>
-      <div id="add">
-        <h2 id="openFormButton">+ Add book</h2>
-      </div>
-      <div id="formPopup" class="popup">
-        <form>
-          <h3>Add new book</h3>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Title"
-            required
-            maxlength="100"
-          />
-          <br />
-          <input
-            type="text"
-            id="author"
-            name="author"
-            placeholder="Author"
-            required
-            maxlength="100"
-          />
-          <br />
-          <input
-            type="number"
-            id="pages"
-            placeholder="Pages"
-            required
-            maxlength="10000"
-          />
-          <div>
-            <h4>Have you read it? <input type="checkbox" /></h4>
-          </div>
-          <button type="submit" onclick=" displayLibrary();">Submit</button>
-        </form>
-      </div>
-      <div id="bookContainer"></div>
-    </main>
-    <footer>
-      <p>
-        Copyright &copy;
-        <script>
-          document.write(new Date().getFullYear());
-        </script>
-        Levi. All rights reserved.
-        <a href="https://github.com/IvelDabs/Library" target="_blank"
-          ><img src="./images/github.jpeg" alt="" class="github"
-        /></a>
-      </p>
-    </footer>
-  </body>
+    <body>
+        <header>
+            <div class="head-flex">
+                <h1>Library</h1>
+                <button id="login">Log in</button>
+            </div>
+        </header>
+        <main>
+            <button id="new-book">New Book</button>
+            <div id="form-container">
+                <form>
+                    <input type="text" id="author" placeholder="Author" required />
+                    <input type="text" id="title" placeholder="Title" required />
+                    <input type="number" placeholder="Number of Pages" id="pages" required /><br />
+                    <label for="read" style="display: inline; margin-left: 40px">Have you read the book?</label>
+                    <input type="checkbox" id="read" style="width: 30px; display: inline" />
+                    <button type="submit" id="add">Add Book</button>
+                </form>
+            </div>
+            <div id="book-container"></div>
+        </main>
+        <footer>
+            <p>
+                Copyright &copy;
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+                Levi. All rights reserved.
+                <a href="https://github.com/IvelDabs/Library" target="_blank"><img src="./images/github.jpeg" alt="" class="github" /></a>
+            </p>
+        </footer>
+    </body>
 </html>

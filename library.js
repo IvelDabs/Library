@@ -1,107 +1,120 @@
-// // class Person {
-// //   constructor(name) {
-// //     this.name = name;
-// //     this.introduceSelf = function () {
-// //       return `Hi and welcome!, my name is ${this.name}`;
-// //     };
-// //   }
-// // }
+// Creating a constructor function
 
-// // function Person(name, age, address, email) {
-// //   this.name = name;
-// //   this.age = age;
-// //   this.address = address;
-// //   this.email = email;
-// //   this.introduceSelf = function () {
-// //     return `Hi and welcome!, my name is ${this.name} and I am ${this.age}, I live @ ${this.address}, I can be reached at "${this.email}"`;
-// //   };
-// // }
-
-// // const dabs = new Person(
-// //   "Dabs",
-// //   27,
-// //   "8 Itelorun close Ikeja",
-// //   "daberelevi@gmail.com"
-// // );
-
-const myLibrary = [];
-
-function Books(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function () {
-    return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-  };
+function Book(author, title, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.info = function () {
+        return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
+    };
 }
 
-function addBookToLibrary() {
-  const userInput = prompt("What book would you love to add to your library? ");
-  myLibrary.push(userInput);
+// Intiatilizing an empty book array
+let library = [];
+
+// Write a function that loops through the array and displays each book on the page
+function displayBooks() {
+    let bookContainer = document.getElementById("book-container");
+    // Clear the container before dispalaying the books.
+    bookContainer.innerHTML = "";
+
+    // Loop through thr library array and create HTML elements for each book
+    library.forEach(function (book, index) {
+        let bookDiv = document.createElement("div");
+        bookDiv.classList.add("book");
+        bookDiv.style.display = "block";
+
+        // Create HTML elements for book details
+
+        let titleElement = document.createElement("h2");
+        titleElement.textContent = book.title;
+
+        let authorElement = document.createElement("p");
+        authorElement.textContent = book.author;
+
+        let pagesElement = document.createElement("p");
+        pagesElement.textContent = book.pages;
+
+        let readElement = document.createElement("p");
+        readElement.textContent = "Read: " + " " + (book.read ? "Yes" : "No");
+
+        // Create a button to remove the book and another to toggle the read status
+
+        let inDiv = document.createElement("div");
+        inDiv.classList.add("div-buttons");
+
+        let removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.classList.add("remove");
+        removeButton.addEventListener("click", () => {
+            removeBook(index);
+        });
+
+        let toggleButton = document.createElement("button");
+        toggleButton.textContent = "Toggle Read";
+        toggleButton.classList.add("toggle");
+        toggleButton.addEventListener("click", () => {
+            tooggleReadStatus(index);
+        });
+
+        inDiv.appendChild(toggleButton);
+        inDiv.appendChild(removeButton);
+
+        // Append all the elements to the book
+        bookDiv.appendChild(titleElement);
+        bookDiv.appendChild(authorElement);
+        bookDiv.appendChild(pagesElement);
+        bookDiv.appendChild(readElement);
+        bookDiv.appendChild(inDiv);
+
+        // Append the book div to the book container
+        bookContainer.appendChild(bookDiv);
+    });
 }
 
-// function displayLibrary() {
-//   const bookContainer = document.getElementById("bookContainer");
-//   bookContainer.innerHTML = ""; // Clear the container before displaying books
+let newbook = document.getElementById("new-book");
+let formconatiner = document.getElementById("form-container");
 
-//   myLibrary.forEach(function (book) {
-//     const bookCard = document.createElement("div");
-//     bookCard.classList.add("book-card");
-
-//     const title = document.createElement("h2");
-//     title.textContent = book.title;
-
-//     const author = document.createElement("p");
-//     author.textContent = "Author: " + book.author;
-
-//     const pages = document.createElement("p");
-//     pages.textContent = "Pages: " + book.pages;
-
-//     const read = document.createElement("p");
-//     read.textContent = "Read: " + book.read;
-
-//     bookCard.appendChild(title);
-//     bookCard.appendChild(author);
-//     bookCard.appendChild(pages);
-//     bookCard.appendChild(read);
-
-//     bookContainer.appendChild(bookCard);
-//   });
-// }
-
-function displayLibrary() {
-  const bookContainer = document.getElementById("bookContainer");
-  bookContainer.innerHTML = ""; // Clears the container before displaying the books
-
-  myLibrary.forEach(function (book) {
-    const bookCard = document.createElement("div");
-    bookCard.classList.add("book-card"); // You can define a CSS class for styling the book cards
-
-    const bookInfo = document.createElement("p");
-    bookInfo.textContent = book.info();
-
-    bookCard.appendChild(bookInfo);
-    bookContainer.appendChild(bookCard);
-  });
-}
-
-const openFormButton = document.getElementById("openFormButton");
-const formPopup = document.getElementById("formPopup");
-
-openFormButton.addEventListener("click", function () {
-  formPopup.style.display = "block";
+newbook.addEventListener("click", () => {
+    formconatiner.style.display = "block";
 });
 
-formPopup.addEventListener("submit", function (event) {
-  event.preventDefault();
-  // Process the form data here
-  // You can access form fields using document.getElementById() or other methods
-  // For example:
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  console.log("Name:", name);
-  console.log("Email:", email);
-  // Close the form popup
-  formPopup.style.display = "none";
+function addBook(event) {
+    event.preventDefault();
+
+    let authorInput = document.getElementById("author");
+    let titleInput = document.getElementById("title");
+    let readInput = document.getElementById("read");
+    let pagesInput = document.getElementById("pages");
+
+    let author = authorInput.value;
+    let title = titleInput.value;
+    let read = readInput.checked;
+    let pages = pagesInput.value;
+
+    let newBook = new Book(author, title, pages, read);
+    library.push(newBook);
+
+    authorInput.value = "";
+    titleInput.value = "";
+    pagesInput.value = "";
+    readInput.checked = false;
+
+    displayBooks();
+}
+
+let added = document.getElementById("add");
+added.addEventListener("click", () => {
+    addBook(event);
 });
+
+function removeBook(index) {
+    library.splice(index, 1);
+    displayBooks();
+}
+
+function tooggleReadStatus(index) {
+    library[index].read = !library[index].read;
+    displayBooks();
+}
