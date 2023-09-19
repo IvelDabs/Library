@@ -102,6 +102,9 @@ function addBook(event) {
     readInput.checked = false;
 
     displayBooks();
+
+    let formContainer = document.getElementById("form-container");
+    formContainer.style.display = "none";
 }
 
 let added = document.getElementById("add");
