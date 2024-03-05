@@ -1,75 +1,49 @@
 // Creating a constructor function
-function Book(title, author, pages,readStatus) {
+
+function Book(author, title, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.readStatus = readStatus
+    this.read = read;
+    this.info = function () {
+        return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
+    };
 }
-
-Book.prototype.displayDetails = function() {
-    return `The ${this.title}, by ${this.author}, with ${this.pages}pages, read status: ${this.readStatus}`
-}
-
-
-//  To Manually Log and display Book details on the page
-
-// function addBookToLibrary() {
-//     let title = prompt('What is the book title? ')
-//     let author = prompt('Who is the author? ')
-//     let pages = prompt('How many pages are there? ')
-//     let read = prompt('Yes/No, have you read the book? ')
-//     let newBook = new Book(title, author, pages, read)
-//     myLibrary.push(newBook)
-//     return myLibrary
-// }
-// let newBook = new Book('Hobbit', 'Daberechi', 295, 'Yes')
-// myLibrary.push(newBook)
-
-// Write a function that loops through the array and displays each book on the page
 
 // Intiatilizing an empty book array
-const myLibrary = []
+let library = [];
 
+// Write a function that loops through the array and displays each book on the page
+function displayBooks() {
+    let bookContainer = document.getElementById("book-container");
+    // Clear the container before dispalaying the books.
+    bookContainer.innerHTML = "";
 
-function removeBook(index) {
-    myLibrary.splice(index, 1);
-    displayDetails();
-}
+    // Loop through thr library array and create HTML elements for each book
+    library.forEach(function (book, index) {
+        let bookDiv = document.createElement("div");
+        bookDiv.classList.add("book");
+        bookDiv.style.display = "block";
 
-function tooggleReadStatus(index) {
-    myLibrary[index].read = !myLibrary[index].read;
-    displayDetails();
-}
+        // Create HTML elements for book details
 
+        let titleElement = document.createElement("h2");
+        titleElement.textContent = book.title;
 
-function displayBook(arr) {
-    let bookContainer = document.getElementById('book-container')
+        let authorElement = document.createElement("p");
+        authorElement.textContent = book.author;
 
-    arr.forEach((book, index) => {
-        let bookDiv = document.createElement('div');
-        bookDiv.classList.add('book');
-        bookDiv.style.display = 'block';
+        let pagesElement = document.createElement("p");
+        pagesElement.textContent = book.pages;
 
-        let bookIndex = document.createElement('h3');
-        bookIndex.textContent = 'Book: ' + (index + 1);
-
-        let titleElement = document.createElement('h1');
-        titleElement.textContent = 'Title: ' + book.title;
-        
-        let authorElement = document.createElement('p');
-        authorElement.textContent = 'Author: ' + book.author;
-
-        let pagesElement = document.createElement('p');
-        pagesElement.textContent = 'Pages: ' + book.pages;
-
-        let readStatusElement = document.createElement('p');
-        readStatusElement.textContent = 'Read: ' + (book.readStatus ? 'Yes' : 'No'); 
-
-        let underScore = document.createElement('p');
-        underScore.textContent = "------------------------------";
-
+        let readElement = document.createElement("p");
+        readElement.textContent = "Read: " + " " + (book.read ? "Yes" : "No");
 
         // Create a button to remove the book and another to toggle the read status
+
+        let inDiv = document.createElement("div");
+        inDiv.classList.add("div-buttons");
+
         let removeButton = document.createElement("button");
         removeButton.textContent = "Remove";
         removeButton.classList.add("remove");
@@ -84,27 +58,24 @@ function displayBook(arr) {
             tooggleReadStatus(index);
         });
 
-        let inDiv = document.createElement("div");
-        inDiv.classList.add("div-buttons");
-
         inDiv.appendChild(toggleButton);
         inDiv.appendChild(removeButton);
 
-        // Append all the elements to the book div
-        bookDiv.appendChild(bookIndex);
+        // Append all the elements to the book
         bookDiv.appendChild(titleElement);
         bookDiv.appendChild(authorElement);
         bookDiv.appendChild(pagesElement);
-        bookDiv.appendChild(readStatusElement);
-        bookDiv.appendChild(underScore);
+        bookDiv.appendChild(readElement);
+        bookDiv.appendChild(inDiv);
 
         // Append the book div to the book container
         bookContainer.appendChild(bookDiv);
     });
 }
 
-let formconatiner = document.getElementById("form-container");
 let newbook = document.getElementById("new-book");
+let formconatiner = document.getElementById("form-container");
+
 newbook.addEventListener("click", () => {
     formconatiner.style.display = "block";
 });
@@ -122,29 +93,31 @@ function addBook(event) {
     let read = readInput.checked;
     let pages = pagesInput.value;
 
-    // let author = document.getElementById("author");
-    // let title = document.getElementById("title");
-    // let read = document.getElementById("read");
-    // let pages = document.getElementById("pages");
+    let newBook = new Book(author, title, pages, read);
+    library.push(newBook);
 
     authorInput.value = "";
     titleInput.value = "";
     pagesInput.value = "";
     readInput.checked = false;
 
-    let newBook = new Book(author, title, pages, read);
-    myLibrary.push(newBook);
-
+    displayBooks();
 
     let formContainer = document.getElementById("form-container");
     formContainer.style.display = "none";
-
-
-    displayDetails();
 }
 
-let add = document.getElementById("add");
-add.addEventListener("click", () => {
+let added = document.getElementById("add");
+added.addEventListener("click", () => {
     addBook(event);
 });
 
+function removeBook(index) {
+    library.splice(index, 1);
+    displayBooks();
+}
+
+function tooggleReadStatus(index) {
+    library[index].read = !library[index].read;
+    displayBooks();
+}
