@@ -79,6 +79,7 @@ footer {
     transform: translate(-50%, -50%);
     background-color: #756f6f;
     border: 1px solid #ccc;
+    width: 60px;
    
 }
 
@@ -123,8 +124,8 @@ input[type="number"] {
     height: 35px;
 }
 
-#book-container{
+/* #book-container{
     display: flex;
     gap: 2rem;
     flex: 1;
-}
+} */
