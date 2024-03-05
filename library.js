@@ -1,49 +1,56 @@
 // Creating a constructor function
-
-function Book(author, title, pages, read) {
+function Book(title, author, pages,readStatus) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read;
-    this.info = function () {
-        return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-    };
+    this.readStatus = readStatus
 }
 
-// Intiatilizing an empty book array
-let library = [];
+Book.prototype.displayDetails = function() {
+    return `The ${this.title}, by ${this.author}, with ${this.pages}pages, read status: ${this.readStatus}`
+}
 
-// Write a function that loops through the array and displays each book on the page
-function displayBooks() {
-    let bookContainer = document.getElementById("book-container");
-    // Clear the container before dispalaying the books.
-    bookContainer.innerHTML = "";
+const myLibrary = []
 
-    // Loop through thr library array and create HTML elements for each book
-    library.forEach(function (book, index) {
-        let bookDiv = document.createElement("div");
-        bookDiv.classList.add("book");
-        bookDiv.style.display = "block";
+function removeBook(index) {
+    myLibrary.splice(index, 1);
+    displayDetails();
+}
 
-        // Create HTML elements for book details
+function tooggleReadStatus(index) {
+    myLibrary[index].read = !myLibrary[index].read;
+    displayDetails();
+}
 
-        let titleElement = document.createElement("h2");
-        titleElement.textContent = book.title;
 
-        let authorElement = document.createElement("p");
-        authorElement.textContent = book.author;
+function displayBook(arr) {
+    let bookContainer = document.getElementById('book-container')
 
-        let pagesElement = document.createElement("p");
-        pagesElement.textContent = book.pages;
+    arr.forEach((book, index) => {
+        let bookDiv = document.createElement('div');
+        bookDiv.classList.add('book');
+        bookDiv.style.display = 'block';
 
-        let readElement = document.createElement("p");
-        readElement.textContent = "Read: " + " " + (book.read ? "Yes" : "No");
+        let bookIndex = document.createElement('h3');
+        bookIndex.textContent = 'Book: ' + (index + 1);
+
+        let titleElement = document.createElement('h1');
+        titleElement.textContent = 'Title: ' + book.title;
+        
+        let authorElement = document.createElement('p');
+        authorElement.textContent = 'Author: ' + book.author;
+
+        let pagesElement = document.createElement('p');
+        pagesElement.textContent = 'Pages: ' + book.pages;
+
+        let readStatusElement = document.createElement('p');
+        readStatusElement.textContent = 'Read: ' + (book.readStatus ? 'Yes' : 'No'); 
+
+        let underScore = document.createElement('p');
+        underScore.textContent = "------------------------------";
+
 
         // Create a button to remove the book and another to toggle the read status
-
-        let inDiv = document.createElement("div");
-        inDiv.classList.add("div-buttons");
-
         let removeButton = document.createElement("button");
         removeButton.textContent = "Remove";
         removeButton.classList.add("remove");
@@ -58,24 +65,27 @@ function displayBooks() {
             tooggleReadStatus(index);
         });
 
+        let inDiv = document.createElement("div");
+        inDiv.classList.add("div-buttons");
+
         inDiv.appendChild(toggleButton);
         inDiv.appendChild(removeButton);
 
-        // Append all the elements to the book
+        // Append all the elements to the book div
+        bookDiv.appendChild(bookIndex);
         bookDiv.appendChild(titleElement);
         bookDiv.appendChild(authorElement);
         bookDiv.appendChild(pagesElement);
-        bookDiv.appendChild(readElement);
-        bookDiv.appendChild(inDiv);
+        bookDiv.appendChild(readStatusElement);
+        bookDiv.appendChild(underScore);
 
         // Append the book div to the book container
         bookContainer.appendChild(bookDiv);
     });
 }
 
-let newbook = document.getElementById("new-book");
 let formconatiner = document.getElementById("form-container");
-
+let newbook = document.getElementById("new-book");
 newbook.addEventListener("click", () => {
     formconatiner.style.display = "block";
 });
@@ -93,31 +103,24 @@ function addBook(event) {
     let read = readInput.checked;
     let pages = pagesInput.value;
 
-    let newBook = new Book(author, title, pages, read);
-    library.push(newBook);
-
     authorInput.value = "";
     titleInput.value = "";
     pagesInput.value = "";
     readInput.checked = false;
 
-    displayBooks();
+    let newBook = new Book(author, title, pages, read);
+    myLibrary.push(newBook);
+
 
     let formContainer = document.getElementById("form-container");
     formContainer.style.display = "none";
+
+
+    displayDetails();
 }
 
-let added = document.getElementById("add");
-added.addEventListener("click", () => {
+let add = document.getElementById("add");
+add.addEventListener("click", () => {
     addBook(event);
 });
 
-function removeBook(index) {
-    library.splice(index, 1);
-    displayBooks();
-}
-
-function tooggleReadStatus(index) {
-    library[index].read = !library[index].read;
-    displayBooks();
-}
