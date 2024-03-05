@@ -11,6 +11,23 @@ Book.prototype.displayDetails = function() {
 }
 
 
+//  To Manually Log and display Book details on the page
+
+// function addBookToLibrary() {
+//     let title = prompt('What is the book title? ')
+//     let author = prompt('Who is the author? ')
+//     let pages = prompt('How many pages are there? ')
+//     let read = prompt('Yes/No, have you read the book? ')
+//     let newBook = new Book(title, author, pages, read)
+//     myLibrary.push(newBook)
+//     return myLibrary
+// }
+// let newBook = new Book('Hobbit', 'Daberechi', 295, 'Yes')
+// myLibrary.push(newBook)
+
+// Write a function that loops through the array and displays each book on the page
+
+// Intiatilizing an empty book array
 const myLibrary = []
 
 
@@ -94,11 +111,21 @@ newbook.addEventListener("click", () => {
 
 function addBook(event) {
     event.preventDefault();
-    
-    let author = document.getElementById("author");
-    let title = document.getElementById("title");
-    let read = document.getElementById("read");
-    let pages = document.getElementById("pages");
+
+    let authorInput = document.getElementById("author");
+    let titleInput = document.getElementById("title");
+    let readInput = document.getElementById("read");
+    let pagesInput = document.getElementById("pages");
+
+    let author = authorInput.value;
+    let title = titleInput.value;
+    let read = readInput.checked;
+    let pages = pagesInput.value;
+
+    // let author = document.getElementById("author");
+    // let title = document.getElementById("title");
+    // let read = document.getElementById("read");
+    // let pages = document.getElementById("pages");
 
     authorInput.value = "";
     titleInput.value = "";
@@ -108,10 +135,12 @@ function addBook(event) {
     let newBook = new Book(author, title, pages, read);
     myLibrary.push(newBook);
 
-    displayDetails();
 
     let formContainer = document.getElementById("form-container");
     formContainer.style.display = "none";
+
+
+    displayDetails();
 }
 
 let add = document.getElementById("add");
