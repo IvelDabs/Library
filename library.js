@@ -75,8 +75,9 @@ function displayBook(arr) {
     });
 }
 
-let formconatiner = document.getElementById("form-container");
 let newbook = document.getElementById("new-book");
+let formconatiner = document.getElementById("form-container");
+
 newbook.addEventListener("click", () => {
     formconatiner.style.display = "block";
 });
@@ -94,20 +95,18 @@ function addBook(event) {
     let read = readInput.checked;
     let pages = pagesInput.value;
 
+    let newBook = new Book(author, title, pages, read);
+    library.push(newBook);
+
     authorInput.value = "";
     titleInput.value = "";
     pagesInput.value = "";
     readInput.checked = false;
 
-    let newBook = new Book(author, title, pages, read);
-    myLibrary.push(newBook);
-
+    displayBooks();
 
     let formContainer = document.getElementById("form-container");
     formContainer.style.display = "none";
-
-
-    displayDetails();
 }
 
 let add = document.getElementById("add");
