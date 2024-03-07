@@ -1,9 +1,11 @@
 // Creating a constructor function
-function Book(title, author, pages,readStatus) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.readStatus = readStatus
+class Book{
+    constructor (title, author, pages,readStatus) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.readStatus = readStatus
+    }
 }
 
 Book.prototype.displayDetails = function() {
@@ -11,17 +13,6 @@ Book.prototype.displayDetails = function() {
 }
 
 const myLibrary = []
-
-function removeBook(index) {
-    myLibrary.splice(index, 1);
-    displayDetails();
-}
-
-function tooggleReadStatus(index) {
-    myLibrary[index].read = !myLibrary[index].read;
-    displayDetails();
-}
-
 
 function displayBook(arr) {
     let bookContainer = document.getElementById('book-container')
@@ -124,3 +115,12 @@ add.addEventListener("click", () => {
     addBook(event);
 });
 
+function removeBook(index) {
+    myLibrary.splice(index, 1);
+    displayDetails();
+}
+
+function tooggleReadStatus(index) {
+    myLibrary[index].read = !myLibrary[index].read;
+    displayDetails();
+}
